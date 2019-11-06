@@ -1,7 +1,7 @@
 var Sequelize = require('sequelize');
 var { database } = require('../database/database');
 
-const Product = database.define('products', {
+const Ingredient = database.define('ingredients', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -14,9 +14,12 @@ const Product = database.define('products', {
     },
     price: {
         type: Sequelize.DOUBLE
+    },
+    imgurl: {
+        type: Sequelize.TEXT
     }
 }, {
     timestamps: false
 });
 
-module.exports = Product;
+module.exports = Ingredient;

@@ -6,7 +6,7 @@ export const database = new Sequelize(
     '1234',
     {
         host: 'localhost',
-        dialiect: 'postgres',
+        dialect: 'postgres',
         pool:{
             max: 5,
             min: 0,
