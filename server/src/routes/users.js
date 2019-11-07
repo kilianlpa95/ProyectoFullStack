@@ -8,8 +8,8 @@ router.get('/', getUsers);
 router.post('/', postUser);
 
 // api/products/:productID
-router.get('/:user_name', getUser);
-router.delete('/:user_name', deleteUser);
-router.put('/:user_name', putUser);
+router.get('/:id', getUser);
+router.delete('/:id', deleteUser);
+router.put('/:id', putUser);
 
 module.exports = router;

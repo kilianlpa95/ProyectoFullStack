@@ -49,13 +49,13 @@ export async function postUser(req, res){
 
 export async function getUser(req, res) {
 
-    const { user_name } = req.params;
+    const { id } = req.params;
 
     try {
 
         const user = await Users.findOne({
             where: {
-                user_name
+                id
             }
         });
 
@@ -69,13 +69,13 @@ export async function getUser(req, res) {
 
 export async function deleteUser(req, res){
 
-    const { user_name } = req.params;
+    const { id } = req.params;
 
     try {
 
         const rowDeleted = await Users.destroy({
             where: {
-                user_name
+                id
             }
         });
 
@@ -92,16 +92,16 @@ export async function deleteUser(req, res){
 
 export async function putUser(req, res){
 
-    const { user_name } = req.params;
+    const { id } = req.params;
 
-    const { user_password, category } = req.body;
+    const { user_name, user_password, category } = req.body;
 
     try {
 
         const user = await Users.findAll({
-            attributes: ['user_name', 'user_password', 'category'],
+            attributes: ['id', 'user_name', 'user_password', 'category'],
             where: {
-                user_name
+                id
             }
         });
 
@@ -109,6 +109,7 @@ export async function putUser(req, res){
             user.forEach(async user => {
                 
                 await user.update({
+                    user_name,
                     user_password,
                     category
                 });
