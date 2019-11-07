@@ -58,6 +58,7 @@ export async function getUser(req, res) {
                 user_name
             }
         });
+
         res.json(user);
 
     } catch (er) {
@@ -93,7 +94,7 @@ export async function putUser(req, res){
 
     const { user_name } = req.params;
 
-    const { user_name, user_password, category } = req.body;
+    const { user_password, category } = req.body;
 
     try {
 
@@ -108,7 +109,6 @@ export async function putUser(req, res){
             user.forEach(async user => {
                 
                 await user.update({
-                    user_name,
                     user_password,
                     category
                 });
