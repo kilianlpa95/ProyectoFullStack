@@ -7,16 +7,16 @@ const Ingredient = database.define('ingredients', {
         primaryKey: true
     },
     name: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
     },
     description: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
     },
     price: {
         type: Sequelize.DOUBLE
     },
     imgurl: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
     }
 }, {
     timestamps: false

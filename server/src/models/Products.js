@@ -7,10 +7,10 @@ const Product = database.define('products', {
         primaryKey: true
     },
     name: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
     },
     description: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
     },
     price: {
         type: Sequelize.DOUBLE

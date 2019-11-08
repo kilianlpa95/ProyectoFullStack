@@ -1,5 +1,6 @@
 
-import Users from '../models/Users'
+import Users from '../models/Users';
+const bcrypt = require('bcrypt');
 
 export async function getUsers(req, res){
 
@@ -23,6 +24,10 @@ export async function postUser(req, res){
     
     try {
 
+        //console.log(user_password);
+        const hash = bcrypt.hashSync(user_password, 10);
+        //console.log(hash);
+        
         const newUser = await Users.create({
             user_name,
             user_password,
@@ -30,8 +35,11 @@ export async function postUser(req, res){
         }, {
             fields: ['user_name', 'user_password', 'category']
         });
-
+        //console.log(hash);
         if (newUser){
+            newUser.update({
+                user_password: hash
+            });
             return res.json({
                 message: 'received',
                 data: newUser
