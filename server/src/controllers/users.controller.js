@@ -2,6 +2,42 @@
 import Users from '../models/Users';
 const bcrypt = require('bcrypt');
 
+function validateEmail(email){
+
+    const validEmail = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+
+    if (validEmail.test(String(email).toLowerCase())){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+function validUser(name, password){
+
+    //const email = false;
+    //const userEmail = user.user_email;
+
+    const userName = typeof name == 'string' && 
+                    name.trim() != '' &&
+                    name.trim().length >= 5;
+
+    /*if (userEmail.match(validEmail)){
+        email = typeof user.user_email == 'string' && 
+                        user.user_email.trim() != '';
+    } else {
+        email = false;
+    }*/
+
+    const pass = typeof password == 'string' && 
+                        password.trim() != '' &&
+                        password.trim().length >= 8;
+                        
+    return userName && /*email &&*/ pass;
+    //return false;
+}
+
 export async function getUsers(req, res){
 
     try {
@@ -20,38 +56,47 @@ export async function getUsers(req, res){
 
 export async function postUser(req, res){
 
-    const { user_name, user_password, category } = req.body;
+    const { user_name, user_password, category, user_email } = req.body;
     
-    try {
+    if(validateEmail(user_email) && validUser(user_name, user_password)){
 
-        //console.log(user_password);
-        const hash = bcrypt.hashSync(user_password, 10);
-        //console.log(hash);
-        
-        const newUser = await Users.create({
-            user_name,
-            user_password,
-            category
-        }, {
-            fields: ['user_name', 'user_password', 'category']
-        });
-        //console.log(hash);
-        if (newUser){
-            newUser.update({
-                user_password: hash
+        try {
+
+            //console.log(user_password);
+            const hash = bcrypt.hashSync(user_password, 10);
+            //console.log(hash);
+            
+            const newUser = await Users.create({
+                user_name,
+                user_password,
+                category,
+                user_email
+            }, {
+                fields: ['user_name', 'user_password', 'category', 'user_email']
             });
-            return res.json({
-                message: 'received',
-                data: newUser
+            //console.log(hash);
+            if (newUser){
+                newUser.update({
+                    user_password: hash
+                });
+                return res.json({
+                    message: 'received',
+                    data: newUser
+                });
+            }
+
+        } catch (er) {
+            console.log(er);
+            res.status(500).json({
+                message: 'error papu',
+                data: {}
             });
         }
 
-    } catch (er) {
-        console.log(er);
-        res.status(500).json({
-            message: 'error papu',
-            data: {}
-        })
+    } else {
+        return res.json({
+            message: 'Campos no válidos, revise email, contraseña (8+ longitud) y usuario (5+ logintud)'
+        });
     }
 }
 
@@ -102,12 +147,14 @@ export async function putUser(req, res){
 
     const { id } = req.params;
 
-    const { user_name, user_password, category } = req.body;
+    const { user_name, user_password, category, user_email } = req.body;
+
+    const hash = bcrypt.hashSync(user_password, 10);
 
     try {
 
         const user = await Users.findAll({
-            attributes: ['id', 'user_name', 'user_password', 'category'],
+            attributes: ['id', 'user_name', 'user_password', 'category', 'user_email'],
             where: {
                 id
             }
@@ -118,8 +165,9 @@ export async function putUser(req, res){
                 
                 await user.update({
                     user_name,
-                    user_password,
-                    category
+                    user_password: hash,
+                    category,
+                    user_email
                 });
 
             });

@@ -11,10 +11,13 @@ const User = database.define('users', {
         type: Sequelize.STRING
     },
     user_password: {
-        type: Sequelize.TEXT
+        type: Sequelize.STRING
     },
     category: {
         type: Sequelize.INTEGER
+    },
+    user_email: {
+        type: Sequelize.STRING
     }
 }, {
     timestamps: false
