@@ -7,11 +7,11 @@ import { postIngredient,
             deleteIngredient, 
             putIngredient } from '../controllers/ingredients.controller'
 
-// api/products
+// api/ingredients
 router.get('/', getIngredients);
 router.post('/', postIngredient);
 
-// api/products/:productID
+// api/ingredients/:ingredientID
 router.get('/:id', getIngredient);
 router.delete('/:id', deleteIngredient);
 router.put('/:id', putIngredient);

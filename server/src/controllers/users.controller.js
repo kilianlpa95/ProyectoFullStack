@@ -183,3 +183,55 @@ export async function putUser(req, res){
     }
 
 }
+
+export async function postLogin(req, res){
+
+    const { user_name } = req.body;
+    const userName = req.body.user_name;
+    const userPass = req.body.user_password;
+
+    try {
+
+        const user = await Users.findOne({
+            where: {
+                user_name
+            }
+        });
+        
+        if(/*validateEmail(user_email) &&*/ validUser(userName, userPass)){
+
+            try {
+                
+                const hash = bcrypt.hashSync(userPass, 10);
+                
+                bcrypt.compare(user.user_password, hash, function(err, res){
+                    if(res && !err){
+                        console.log("Login correcto");
+                    } else {
+                        console.log("Contraseña incorrecta");
+                    }
+                });
+    
+            } catch (er) {
+                console.log(er);
+                res.status(500).json({
+                    message: 'error papu',
+                    data: {}
+                });
+            }
+    
+        } else {
+            return res.json({
+                message: 'Usuario o contraseña incorrectos'
+            });
+        }
+
+        res.json(user);
+
+    } catch (er) {
+        console.log(er);
+    }
+    
+    
+}
+
