@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = Router();
+const authPassport = require('../controllers/passport');
 
 import { postIngredient, 
             getIngredients, 
@@ -8,12 +9,12 @@ import { postIngredient,
             putIngredient } from '../controllers/ingredients.controller'
 
 // api/ingredients
-router.get('/', getIngredients);
-router.post('/', postIngredient);
+router.get('/', authPassport.isAuthenticated, getIngredients);
+router.post('/', authPassport.isAuthenticated, postIngredient);
 
 // api/ingredients/:ingredientID
-router.get('/:id', getIngredient);
-router.delete('/:id', deleteIngredient);
-router.put('/:id', putIngredient);
+router.get('/:id', authPassport.isAuthenticated, getIngredient);
+router.delete('/:id', authPassport.isAuthenticated, deleteIngredient);
+router.put('/:id', authPassport.isAuthenticated, putIngredient);
 
 module.exports = router;
