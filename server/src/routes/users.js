@@ -9,7 +9,7 @@ const authGoogle = require('../controllers/passport.google');
 import { postUser, getUsers, getUser, deleteUser, putUser, /*postLogin*/ } from '../controllers/users.controller'
 
 // api/users
-router.get('/', authPassport.isAuthenticated, getUsers);
+router.get('/', authPassport.isAuthenticated, /*passport.authenticate('google'), { scope: '/users' },*/ getUsers);
 router.post('/', postUser);
 
 // api/users/:userID
@@ -22,7 +22,7 @@ router.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 router.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
+  passport.authenticate('google', { scope: ['profile'] }, { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect('/');
   });
