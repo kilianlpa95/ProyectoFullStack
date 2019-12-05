@@ -14,6 +14,10 @@ export class IngredientPage implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.getIngredients();
+  }
+
+  getIngredients() {
     this.userService.getIngredients().subscribe(
       data => {
         this.ingredients = data['data'];
@@ -23,4 +27,15 @@ export class IngredientPage implements OnInit {
       }
     )
   }
+/* Pasarlo a página create poner funcionalidad boton plus
+  addIngredient(){
+    this.userService.addIngredient().subscribe(
+      data => {
+        this.ingredients = data['data'];
+        console.log(data['data']);
+      }, (error) => {
+        console.error(error);
+      }
+    )
+  }*/
 }

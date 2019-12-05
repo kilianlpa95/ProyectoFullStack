@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Ingredient } from '../ingredient';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class UserService {
 
   deleteIngredient(id){
     return this.http.delete('http://localhost:40000/api/ingredients/' + id);
+  }
+
+  addIngredient(ingredient: any){
+    return this.http.post<Ingredient>('http://localhost:40000/api/ingredients', ingredient);
   }
 }
