@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { Ingredient } from '../ingredient';
 
 @Component({
   selector: 'app-ingredient-details',
@@ -10,34 +9,27 @@ import { Ingredient } from '../ingredient';
 })
 export class IngredientDetailsPage implements OnInit {
 
-  constructor(private route: Router, private userService: UserService) { }
+  ingredient: any[] = [];
 
-  ingredient: Ingredient = { id: null, name: '', price: null, description: '', imgurl: '' };
+  constructor(private userService: UserService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.userService.getIngredients().subscribe(
-      res => {
-        this.ingredient = res;
-        console.log(data['data']);
+    //this.getIngredient();
+    console.log(this.route.snapshot.paramMap.get('id'));
+    this.userService.getIngredient(this.route.snapshot.paramMap.get('id')).subscribe(
+      data => {
+        this.ingredient = data;
+        console.log(data);
+        console.log(this.ingredient);
+        //console.log(this.ingredient['name']);
       }, (error) => {
         console.error(error);
       }
     )
   }
 
-
-
-  async getMillUser() {
-      await this.api.getIngredient(this.route.snapshot.paramMap.get('id'))
-        .subscribe(res => {
-          console.log(res);
-          this.millUser = res;
-          this.isLoadingResults = false;
-        }, err => {
-          console.log(err);
-          this.isLoadingResults = false;
-        });
-    }
+  async getIngredient(){
   }
-
 }

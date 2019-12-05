@@ -1,9 +1,26 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>ingredient-details</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Ingredient details
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <h2>{{ingredient.name}}</h2>
+  <ion-list>
+    <ion-item>
+        {{ingredient.name}}
+      <div class="item-note" slot="end">
+        {{ingredient.price}}
+      </div>
+    </ion-item>
+  </ion-list>
+  <!--
+    <div *ngIf="selectedItem" padding>
+      You navigated here from <b>{{selectedItem.title }}</b>
+    </div>
+  -->
 </ion-content>
