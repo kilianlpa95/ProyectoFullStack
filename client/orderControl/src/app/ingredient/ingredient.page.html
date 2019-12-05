@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Ingredient list
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+      <ion-item *ngFor="let ingredient of ingredients" [routerLink]="'../ingredient-details/' + ingredient.id" detail>
+          {{ingredient.name}}
+        <div class="item-note" slot="end">
+          {{ingredient.price}}
+        </div>
+      </ion-item>
+    </ion-list>
+    <!--
+      <div *ngIf="selectedItem" padding>
+        You navigated here from <b>{{selectedItem.title }}</b>
+      </div>
+    -->
+  </ion-content>

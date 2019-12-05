@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'local',
+    redirectTo: 'ingredient',
     pathMatch: 'full'
   },
   {
@@ -18,7 +18,46 @@ const routes: Routes = [
   {
     path: 'local',
     loadChildren: () => import('./local/local.module').then( m => m.LocalPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'product',
+    loadChildren: () => import('./product/product.module').then( m => m.ProductsPageModule)
+  },
+  {
+    path: 'create-products',
+    loadChildren: () => import('./create-products/create-products.module').then( m => m.CreateProductsPageModule)
+  },
+  {
+    path: 'create-ingredient',
+    loadChildren: () => import('./create-ingredient/create-ingredient.module').then( m => m.CreateIngredientPageModule)
+  },
+  {
+    path: 'ingredient',
+    loadChildren: () => import('./ingredient/ingredient.module').then( m => m.IngredientPageModule)
+  },
+  {
+    path: 'order',
+    loadChildren: () => import('./order/order.module').then( m => m.OrderPageModule)
+  },
+  {
+    path: 'product-details/:id',
+    loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
+  },
+  {
+    path: 'ingredient-details/:id',
+    loadChildren: () => import('./ingredient-details/ingredient-details.module').then( m => m.IngredientDetailsPageModule)
   }
+
+
+
 
 ];
 

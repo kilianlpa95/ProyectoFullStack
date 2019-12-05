@@ -20,6 +20,46 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Local',
+      url: '/local',
+      icon: 'list'
+    },
+    {
+      title: 'Login',
+      url: '/login',
+      icon: 'list'
+    },
+    {
+      title: 'Register',
+      url: '/register',
+      icon: 'list'
+    },
+    {
+      title: 'Products',
+      url: '/product',
+      icon: 'list'
+    },
+    {
+      title: 'Create product',
+      url: '/create-products',
+      icon: 'list'
+    },
+    {
+      title: 'Ingredients',
+      url: '/ingredient',
+      icon: 'list'
+    },
+    {
+      title: 'Create ingredient',
+      url: '/create-ingredient',
+      icon: 'list'
+    },
+    {
+      title: 'Order',
+      url: '/order',
+      icon: 'list'
     }
   ];
 

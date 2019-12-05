@@ -9,12 +9,12 @@ import { postIngredient,
             putIngredient } from '../controllers/ingredients.controller'
 
 // api/ingredients
-router.get('/', authPassport.isAuthenticated, getIngredients);
-router.post('/', authPassport.isAuthenticated, postIngredient);
+router.get('/', getIngredients);
+router.post('/', postIngredient);
 
 // api/ingredients/:ingredientID
-router.get('/:id', authPassport.isAuthenticated, getIngredient);
-router.delete('/:id', authPassport.isAuthenticated, deleteIngredient);
-router.put('/:id', authPassport.isAuthenticated, putIngredient);
+router.get('/:id', getIngredient);
+router.delete('/:id', deleteIngredient);
+router.put('/:id', putIngredient);
 
 module.exports = router;
