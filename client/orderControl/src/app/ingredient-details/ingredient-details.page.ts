@@ -10,19 +10,24 @@ import { UserService } from '../services/user.service';
 export class IngredientDetailsPage implements OnInit {
 
   ingredient: any[] = [];
+      
+  id = this.route.snapshot.paramMap.get('id');
 
   constructor(private userService: UserService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
-    //this.getIngredient();
-    console.log(this.route.snapshot.paramMap.get('id'));
-    this.userService.getIngredient(this.route.snapshot.paramMap.get('id')).subscribe(
+    this.getIngredient();
+  }
+
+  async getIngredient(){
+    //console.log(this.route.snapshot.paramMap.get('id'));
+    await this.userService.getIngredient(this.route.snapshot.paramMap.get('id')).subscribe(
       data => {
         this.ingredient = data;
-        console.log(data);
-        console.log(this.ingredient);
+        //console.log(data);
+        //console.log(this.ingredient);
         //console.log(this.ingredient['name']);
       }, (error) => {
         console.error(error);
@@ -30,6 +35,14 @@ export class IngredientDetailsPage implements OnInit {
     )
   }
 
-  async getIngredient(){
+  async deleteIngredient(id: any) {
+    await this.userService.deleteIngredient(id)
+      .subscribe(res => {
+        this.router.navigate([ '/home' ]);
+      }, err => {
+        console.log(err);
+      });
   }
+
+
 }

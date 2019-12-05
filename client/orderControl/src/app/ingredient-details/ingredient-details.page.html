@@ -17,6 +17,11 @@
         {{ingredient.price}}
       </div>
     </ion-item>
+
+    <section class="ion-text-center">
+      <ion-button color="primary">Edit</ion-button>
+      <ion-button color="danger" (click)="deleteIngredient(ingredient.id)">Delete</ion-button>
+    </section>
   </ion-list>
   <!--
     <div *ngIf="selectedItem" padding>

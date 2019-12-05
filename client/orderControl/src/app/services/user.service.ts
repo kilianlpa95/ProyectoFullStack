@@ -13,6 +13,10 @@ export class UserService {
   }
 
   getIngredient(id){
-    return this.http.get('http://localhost:40000/api/ingredients/' + id);
+    return this.http.get<any[]>('http://localhost:40000/api/ingredients/' + id);
+  }
+
+  deleteIngredient(id){
+    return this.http.delete('http://localhost:40000/api/ingredients/' + id);
   }
 }
