@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ingredient } from '../models/ingredient';
 import { Product } from '../models/product';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,13 @@ export class ApiService {
 
   getUsers() {
     return this.http.get<any[]>('http://localhost:40000/api/users');
+  }
+
+  addUser(user: any) {
+    return this.http.post<User[]>('http://localhost:40000/api/users', user);
+  }
+
+  login(userName, userPassword, user: any) {
+    return this.http.post<User[]>('http://localhost:40000/api/users/' + userName + '/' + userPassword, user);
   }
 }

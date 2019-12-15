@@ -6,25 +6,25 @@
 
 <ion-content padding class="form-content">
   <ion-img  src="../assets/img/dragonface2.png"></ion-img>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
-      <ion-input type="text" formControlName="username"></ion-input>
+      <ion-input type="text" formControlName="usernameLogin"></ion-input>
     </ion-item>
     <div class="validation-errors">
-      <ng-container *ngFor="let validation of validationMessages.username">
-        <div class="error-message" *ngIf="loginForm.get('username').hasError(validation.type) && (loginForm.get('username').dirty || loginForm.get('username').touched)">
+      <ng-container *ngFor="let validation of validationMessages.usernameLogin">
+        <div class="error-message" *ngIf="loginForm.get('usernameLogin').hasError(validation.type) && (loginForm.get('usernameLogin').dirty || loginForm.get('usernameLogin').touched)">
           <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
         </div>
       </ng-container>
     </div>
       <ion-item>
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
+        <ion-input type="password" formControlName="passwordLogin"></ion-input>
       </ion-item>
       <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.password">
-          <div class="error-message" *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+        <ng-container *ngFor="let validation of validationMessages.passwordLogin">
+          <div class="error-message" *ngIf="loginForm.get('passwordLogin').hasError(validation.type) && (loginForm.get('passwordLogin').dirty || loginForm.get('passwordLogin').touched)">
             <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
           </div>
         </ng-container>

@@ -26,12 +26,12 @@ export class AppComponent {
       url: '/local',
       icon: 'list'
     },
-    {
+    /*{
       title: 'Login',
       url: '/login',
       icon: 'list'
     },
-    /*{
+    {
       title: 'Register',
       url: '/register',
       icon: 'list'

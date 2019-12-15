@@ -111,17 +111,17 @@ export class CreateIngredientPage implements OnInit {
       this.apiService.addIngredient(this.ingredient).subscribe(
         data => {
           this.ingredient = data['data'];
+          this.toast.create({
+            message: 'Ingredient created successfully',
+            duration: 3000
+          }).then((toastData) => {
+            toastData.present();
+          });
+          this.router.navigate(['/ingredient']);
         }, (error) => {
           console.error(error);
         }
       );
-      this.toast.create({
-        message: 'Ingredient created successfully',
-        duration: 3000
-      }).then((toastData) => {
-        toastData.present();
-      });
-      this.router.navigate(['/ingredient']);
     } else {
       this.ingredient = {
         name: values.ingname,
@@ -133,17 +133,17 @@ export class CreateIngredientPage implements OnInit {
       this.apiService.updateIngredient(this.ingredient, this.id).subscribe(
         data => {
           this.ingredient = data['data'];
+          this.toast.create({
+            message: 'Updated successfully',
+            duration: 3000
+          }).then((toastData) => {
+            toastData.present();
+          });
+          this.router.navigate(['/ingredient']);
         }, (error) => {
           console.error(error);
         }
       );
-      this.toast.create({
-        message: 'Updated successfully',
-        duration: 3000
-      }).then((toastData) => {
-        toastData.present();
-      });
-      this.router.navigate(['/ingredient']);
     }
   }
 }

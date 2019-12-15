@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordValidator } from '../../validators/password.validator';
+import { ApiService } from '../../services/api.service';
+import { User } from '../../models/user';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +15,7 @@ export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
   matchPassGroup: FormGroup;
+  user: User;
   validationMessages = {
     username: [
       { type: 'required', message: 'Username is required.' },
@@ -19,7 +23,7 @@ export class RegisterPage implements OnInit {
       { type: 'maxlength', message: 'Username cannot be more than 10 characters long.' },
       { type: 'validUsername', message: 'Your username has already been taken.' }
     ],
-    password: [
+    passwordForm: [
       { type: 'required', message: 'Password is required.' },
       { type: 'minlength', message: 'Password must be at least 8 characters long.' },
       { type: 'maxlength', message: 'Username cannot be more than 15 characters long.' },
@@ -39,7 +43,9 @@ export class RegisterPage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private apiService: ApiService,
+    private toast: ToastController
   ) { }
 
   ngOnInit() {
@@ -49,7 +55,7 @@ export class RegisterPage implements OnInit {
   generateForm() {
 
     this.matchPassGroup = new FormGroup({
-      password: new FormControl('', Validators.compose([
+      passwordForm: new FormControl('', Validators.compose([
         Validators.minLength(8),
         Validators.maxLength(15),
         Validators.required,
@@ -75,8 +81,26 @@ export class RegisterPage implements OnInit {
 
   }
 
-  onSubmit(values) {
-    
-    this.router.navigate(['/home']);
+  addUser(values) {
+    this.user = {
+      user_name: values.username,
+      user_password: values.matchingPasswords.passwordForm,
+      user_email: values.email
+    };
+
+    this.apiService.addUser(this.user).subscribe(
+      data => {
+        this.user = data['data'];
+        this.toast.create({
+          message: 'User created successfully',
+          duration: 2000
+        }).then((toastData) => {
+          toastData.present();
+        });
+        this.router.navigate(['/home']);
+      }, (error) => {
+        console.error(error);
+      }
+    );
   }
 }

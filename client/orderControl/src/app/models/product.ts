@@ -1,7 +1,6 @@
-export class Ingredient {
-    id: number;
+export interface Product {
     name: string;
-    price: number;
     description: string;
+    price: number;
     imgurl: string;
 }

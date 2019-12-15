@@ -1,12 +1,14 @@
 <ion-header>
   <ion-toolbar color="secondary" class="ion-text-center">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Sign In</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content padding class="form-content">
   <ion-img  src="../assets/img/dragonface2.png"></ion-img>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
+  <form [formGroup]="registerForm" (ngSubmit)="addUser(registerForm.value)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input type="text" formControlName="username"></ion-input>
@@ -32,16 +34,15 @@
     <div formGroupName="matchingPasswords">
       <ion-item>
         <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
+        <ion-input type="password" formControlName="passwordForm"></ion-input>
       </ion-item>
       <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.password">
-          <div class="error-message" *ngIf="registerForm.get('matchingPasswords').get('password').hasError(validation.type) && (registerForm.get('matchingPasswords').get('password').dirty || registerForm.get('matchingPasswords').get('password').touched)">
+        <ng-container *ngFor="let validation of validationMessages.passwordForm">
+          <div class="error-message" *ngIf="registerForm.get('matchingPasswords').get('passwordForm').hasError(validation.type) && (registerForm.get('matchingPasswords').get('passwordForm').dirty || registerForm.get('matchingPasswords').get('passwordForm').touched)">
             <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
           </div>
         </ng-container>
       </div>
-
       <ion-item>
         <ion-label position="floating">Confirm Password</ion-label>
         <ion-input type="password" formControlName="confirmPassword"></ion-input>
