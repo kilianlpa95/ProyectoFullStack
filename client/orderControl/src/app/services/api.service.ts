@@ -49,4 +49,12 @@ export class ApiService {
   updateProduct(product: any, id) {
     return this.http.put<Product>('http://localhost:40000/api/products/' + id, product);
   }
+
+  getUsername(username) {
+    return this.http.get<any[]>('http://localhost:40000/api/users/username/' + username);
+  }
+
+  getUsers() {
+    return this.http.get<any[]>('http://localhost:40000/api/users');
+  }
 }

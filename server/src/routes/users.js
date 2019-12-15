@@ -6,16 +6,19 @@ var GoogleStrategy = require('passport-google-oauth20').Strategy;
 const authPassport = require('../controllers/passport');
 const authGoogle = require('../controllers/passport.google');
 
-import { postUser, getUsers, getUser, deleteUser, putUser, /*postLogin*/ } from '../controllers/users.controller'
+import { postUser, getUsers, getUser, deleteUser, putUser, getUserName/*postLogin*/ } from '../controllers/users.controller'
 
 // api/users
-router.get('/', authPassport.isAuthenticated, /*passport.authenticate('google'), { scope: '/users' },*/ getUsers);
+router.get('/',/* authPassport.isAuthenticated, passport.authenticate('google'), { scope: '/users' },*/ getUsers);
 router.post('/', postUser);
 
 // api/users/:userID
-router.get('/:id', authPassport.isAuthenticated, getUser);
-router.delete('/:id', authPassport.isAuthenticated, deleteUser);
-router.put('/:id', authPassport.isAuthenticated, putUser);
+router.get('/:id', /*authPassport.isAuthenticated,*/ getUser);
+router.delete('/:id', /*authPassport.isAuthenticated,*/ deleteUser);
+router.put('/:id', /*authPassport.isAuthenticated,*/ putUser);
+
+// api/users/username/:username
+router.get('/username/:user_name', /*authPassport.isAuthenticated,*/ getUserName);
 
 // api/users/auth/google
 router.get('/auth/google',

@@ -12,5 +12,4 @@ router.post('/',  postProduct);
 router.get('/:id',  getProduct);
 router.delete('/:id',  deleteProduct);
 router.put('/:id', /*authPassport.isAuthenticated,*/ putProduct);
-
 module.exports = router;

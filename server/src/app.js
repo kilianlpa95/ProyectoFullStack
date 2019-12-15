@@ -42,6 +42,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(json());
+app.use(cors(/*{credentials: true}*/));
 
 //routes
 app.use('/api/products', productsRoutes);

@@ -1,5 +1,6 @@
 
 import Users from '../models/Users';
+var User = require('../models/Users');
 const bcrypt = require('bcrypt');
 const localStrategy = require('passport-local').Strategy;
 const passport = require('passport');
@@ -60,7 +61,7 @@ export async function postUser(req, res){
 
     const { user_name, user_password, category, user_email } = req.body;
     
-    if(validateEmail(user_email) && validUser(user_name, user_password)){
+    /*if(validateEmail(user_email) && validUser(user_name, user_password)){*/
 
         try {
 
@@ -94,12 +95,12 @@ export async function postUser(req, res){
                 data: {}
             });
         }
-
+/*
     } else {
         return res.json({
             message: 'Campos no válidos, revise email, contraseña (8+ longitud) y usuario (5+ logintud)'
         });
-    }
+    }*/
 }
 
 export async function getUser(req, res) {
@@ -119,7 +120,22 @@ export async function getUser(req, res) {
     } catch (er) {
         console.log(er);
     }
+}
 
+export async function getUserName(req, res) {
+    const { user_name } = req.params;
+    try {
+
+        const user = await Users.findOne({
+            where: {
+                user_name
+            }
+        });
+        if (!user) { res.json({ message: 'No user' }); } else { res.json(user); }
+
+    } catch (er) {
+        console.log(er);
+    }
 }
 
 export async function deleteUser(req, res){
@@ -215,7 +231,7 @@ export async function postLogin(req, res){
 
     try {
         
-        if(/*validateEmail(user_email) &&*/ validUser(userName, userPass) && user != null){
+        //if(/*validateEmail(user_email) &&*/ validUser(userName, userPass) && user != null){
 
             try {
                 
@@ -242,16 +258,16 @@ export async function postLogin(req, res){
             } catch (er) {
                 console.log(er);
                 res.status(500).json({
-                    message: 'error papu',
+                    message: 'error, mirar deep deep',
                     data: {}
                 });
             }
-    
+    /*
         } else {
             return res.json({
                 message: 'Usuario o contraseña incorrectos'
             });
-        }
+        }*/
         /*
         if (user){
             console.log("OK");
