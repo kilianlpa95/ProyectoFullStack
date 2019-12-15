@@ -72,7 +72,7 @@ export async function deleteIngredient(req, res){
     const { id } = req.params;
 
     try {
-
+        console.log(id);
         const rowDeleted = await Ingredients.destroy({
             where: {
                 id
@@ -80,14 +80,14 @@ export async function deleteIngredient(req, res){
         });
 
         res.json({
-            message: 'Ingredient deleted',
-            count: rowDeleted
+            message: 'Ingredient deleted'//,
+            //count: rowDeleted
         });
 
     } catch (er) {
         console.log(er);
         res.status(500).json({
-            message: 'error papu',
+            message: 'error papu del delete',
             data: {}
         })
     }

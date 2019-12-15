@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Product list
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="ionRefresh($event)">
+    <ion-refresher-content refreshingSpinner="lines-small">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-list>
+    <ion-item *ngFor="let product of products" [routerLink]="'../product-details/' + product.id" detail>
+      <ion-thumbnail slot="end">
+        <img src="{{product.imgurl}}">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Name: {{product.name}}</h3>
+        <p>Description: {{product.description}}</p>
+        <p>Price: {{product.price}} €</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" class="ion-padding">
+    <ion-fab-button color="danger" [routerLink]="['/create-product']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

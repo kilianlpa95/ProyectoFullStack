@@ -19,16 +19,17 @@ export async function getProducts(req, res){
 
 export async function postProduct(req, res){
 
-    const { name, description, price } = req.body;
+    const { name, description, price, imgurl } = req.body;
     
     try {
 
         const newProduct = await Products.create({
             name,
             description,
-            price
+            price,
+            imgurl
         }, {
-            fields: ['name', 'description', 'price']
+            fields: ['name', 'description', 'price', 'imgurl']
         });
 
         if (newProduct){
@@ -93,12 +94,12 @@ export async function putProduct(req, res){
 
     const { id } = req.params;
 
-    const { name, description, price } = req.body;
+    const { name, description, price, imgurl } = req.body;
 
     try {
 
         const product = await Products.findAll({
-            attributes: ['id', 'name', 'description', 'price'],
+            attributes: ['id', 'name', 'description', 'price', 'imgurl'],
             where: {
                 id
             }
@@ -110,7 +111,8 @@ export async function putProduct(req, res){
                 await product.update({
                     name,
                     description,
-                    price
+                    price,
+                    imgurl
                 });
 
             });
