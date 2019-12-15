@@ -5,9 +5,14 @@
 A continuación procederé a explicar paso a paso lo necesario para instalar esta aplicación y mostrarla en un navegador web.
 
 ### 1. Debemos asegurarnos de tener instalado todo los necesario es decir:
+
 + NodeJs. (https://nodejs.org/)
 + Git. (https://git-scm.com/)
-### 2. Seguidamente procedemos a descargar el proyecto, ya sea desde la consola con git (git clone https://github.com/kilianlpa95/ProyectoFullStack.git) o descargando el ZIP desde https://github.com/kilianlpa95/ProyectoFullStack.
+
+### 2. Seguidamente procedemos a descargar el proyecto, ya sea desde la consola con git (git clone https://github.com/kilianlpa95/ProyectoFullStack.git) 
+### o descargando el ZIP desde https://github.com/kilianlpa95/ProyectoFullStack.
+
+!(https://i.imgur.com/6wrW3YV.png)
 
 ### 3. Una vez tengamos el proyecto en nuestra carpeta (aquella donde ejecutamos git clone o descomprimimos el proyecto), deberemos acceder a ella desde la consola de comandos para trabajar con NodeJS. 
 
