@@ -97,7 +97,7 @@ export class LocalPage implements OnInit {
     task.description = values.description;
     this.storageService.updateTask(task).then(_ => {
       this.toast.create({
-        message: 'Task udated successfully',
+        message: 'Task updated successfully',
         duration: 3000
       }).then((toastData) => {
         toastData.present();
