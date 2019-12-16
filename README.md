@@ -15,9 +15,9 @@ A continuación procederé a explicar paso a paso lo necesario para instalar est
 
 ![alt git](https://i.imgur.com/6wrW3YV.png)
 
-### 3. Luego deberemos usar el archivo SQL de la carpeta para crear la base de datos, no sin antes haber puesto la contraseña en "1234" para el usuario postgres o cambiar los datos de la DDBB en el fichero "server/src/database/database.ts", crearemos una de nombre "FullStackDB" y realizamos un backup.
+### 3. Luego deberemos usar el archivo SQL de la carpeta para crear la base de datos, no sin antes haber puesto la contraseña en "1234" para el usuario postgres o cambiar los datos de la DDBB en el fichero "server/src/database/database.ts", crearemos una de nombre "FullStackDB" y realizamos un restore con el fichero .sql.
 
-![alt postgres](https://i.imgur.com/ZcizMcH.png)
+![alt postgres](https://i.imgur.com/KVQm8Lv.png)
 
 ### 4. Una vez tengamos el proyecto en nuestra carpeta (aquella donde ejecutamos git clone o descomprimimos el proyecto), deberemos acceder a ella desde la consola de comandos para trabajar con NodeJS. 
 
