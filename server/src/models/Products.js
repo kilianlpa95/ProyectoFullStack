@@ -14,6 +14,9 @@ const Product = database.define('products', {
     },
     price: {
         type: Sequelize.DOUBLE
+    },
+    imgurl: {
+        type: Sequelize.STRING
     }
 }, {
     timestamps: false

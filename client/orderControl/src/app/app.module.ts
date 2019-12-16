@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { IonicStorageModule } from '@ionic/storage';
-import { UserService } from './services/user.service';
+import { ApiService } from './services/api.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -26,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    UserService,
+    ApiService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

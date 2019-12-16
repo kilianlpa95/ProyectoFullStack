@@ -4,60 +4,68 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'ingredient',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'list',
-    loadChildren: () => import('./list/list.module').then(m => m.ListPageModule)
+    loadChildren: () => import('./pages/list/list.module').then(m => m.ListPageModule)
   },
   {
     path: 'local',
-    loadChildren: () => import('./local/local.module').then( m => m.LocalPageModule)
+    loadChildren: () => import('./pages/local/local.module').then( m => m.LocalPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'product',
-    loadChildren: () => import('./product/product.module').then( m => m.ProductsPageModule)
+    loadChildren: () => import('./pages/product/product.module').then( m => m.ProductsPageModule)
   },
   {
-    path: 'create-products',
-    loadChildren: () => import('./create-products/create-products.module').then( m => m.CreateProductsPageModule)
+    path: 'create-product',
+    loadChildren: () => import('./pages/create-product/create-product.module').then( m => m.CreateProductPageModule)
+  },
+  {
+    path: 'create-product/:id',
+    loadChildren: () => import('./pages/create-product/create-product.module').then( m => m.CreateProductPageModule)
   },
   {
     path: 'create-ingredient',
-    loadChildren: () => import('./create-ingredient/create-ingredient.module').then( m => m.CreateIngredientPageModule)
+    loadChildren: () => import('./pages/create-ingredient/create-ingredient.module').then( m => m.CreateIngredientPageModule)
+  },
+  {
+    path: 'create-ingredient/:id',
+    loadChildren: () => import('./pages/create-ingredient/create-ingredient.module').then( m => m.CreateIngredientPageModule)
   },
   {
     path: 'ingredient',
-    loadChildren: () => import('./ingredient/ingredient.module').then( m => m.IngredientPageModule)
+    loadChildren: () => import('./pages/ingredient/ingredient.module').then( m => m.IngredientPageModule)
   },
   {
     path: 'order',
-    loadChildren: () => import('./order/order.module').then( m => m.OrderPageModule)
+    loadChildren: () => import('./pages/order/order.module').then( m => m.OrderPageModule)
   },
   {
     path: 'product-details/:id',
-    loadChildren: () => import('./product-details/product-details.module').then( m => m.ProductDetailsPageModule)
+    loadChildren: () => import('./pages/product-details/product-details.module').then( m => m.ProductDetailsPageModule)
   },
   {
     path: 'ingredient-details/:id',
-    loadChildren: () => import('./ingredient-details/ingredient-details.module').then( m => m.IngredientDetailsPageModule)
+    loadChildren: () => import('./pages/ingredient-details/ingredient-details.module').then( m => m.IngredientDetailsPageModule)
+  },  {
+    path: 'add-ingredient',
+    loadChildren: () => import('./pages/add-ingredient/add-ingredient.module').then( m => m.AddIngredientPageModule)
   }
-
-
-
 
 ];
 

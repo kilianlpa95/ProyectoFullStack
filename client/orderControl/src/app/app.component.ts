@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
+
 export class AppComponent {
   public appPages = [
     {
@@ -16,17 +17,17 @@ export class AppComponent {
       url: '/home',
       icon: 'home'
     },
-    {
+    /*{
       title: 'List',
       url: '/list',
       icon: 'list'
-    },
+    },*/
     {
       title: 'Local',
       url: '/local',
       icon: 'list'
     },
-    {
+    /*{
       title: 'Login',
       url: '/login',
       icon: 'list'
@@ -35,23 +36,23 @@ export class AppComponent {
       title: 'Register',
       url: '/register',
       icon: 'list'
-    },
+    },*/
     {
       title: 'Products',
       url: '/product',
       icon: 'list'
     },
-    {
+    /*{
       title: 'Create product',
       url: '/create-products',
       icon: 'list'
-    },
+    },*/
     {
       title: 'Ingredients',
       url: '/ingredient',
       icon: 'list'
     },
-    {
+    /*{
       title: 'Create ingredient',
       url: '/create-ingredient',
       icon: 'list'
@@ -60,7 +61,7 @@ export class AppComponent {
       title: 'Order',
       url: '/order',
       icon: 'list'
-    }
+    }*/
   ];
 
   constructor(

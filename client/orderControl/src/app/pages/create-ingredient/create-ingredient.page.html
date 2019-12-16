@@ -1,0 +1,71 @@
+<ion-header text-center>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ pageTitle }} ingredient
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ingform" (ngSubmit)="addIngredient(ingform.value)">
+
+    <ion-item>
+      <ion-label position="floating">Ingredient name</ion-label>
+      <ion-input type="text" formControlName="ingname"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.ingname">
+        <div class="error-message"
+          *ngIf="ingform.get('ingname').hasError(validation.type) && (ingform.get('ingname').dirty || ingform.get('ingname').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Ingredient description</ion-label>
+      <ion-input type="text" formControlName="ingdesc"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.ingdesc">
+        <div class="error-message"
+          *ngIf="ingform.get('ingdesc').hasError(validation.type) && (ingform.get('ingdesc').dirty || ingform.get('ingdesc').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Ingredient price</ion-label>
+      <ion-input type="number" formControlName="ingprice"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.ingprice">
+        <div class="error-message"
+          *ngIf="ingform.get('ingprice').hasError(validation.type) && (ingform.get('ingprice').dirty || ingform.get('ingprice').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Ingredient image URL</ion-label>
+      <ion-input type="text" formControlName="ingimage"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.ingimage">
+        <div class="error-message"
+          *ngIf="ingform.get('ingimage').hasError(validation.type) && (ingform.get('ingimage').dirty || ingform.get('ingimage').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-button type="submit" expand="block" fill="outline" [disabled]="!ingform.valid">Confirm</ion-button>
+
+  </form>
+
+</ion-content>

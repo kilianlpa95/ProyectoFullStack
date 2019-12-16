@@ -1,5 +1,6 @@
 
 import Users from '../models/Users';
+var User = require('../models/Users');
 const bcrypt = require('bcrypt');
 const localStrategy = require('passport-local').Strategy;
 const passport = require('passport');
@@ -58,9 +59,9 @@ export async function getUsers(req, res){
 
 export async function postUser(req, res){
 
-    const { user_name, user_password, category, user_email } = req.body;
+    const { user_name, user_password, user_email } = req.body;
     
-    if(validateEmail(user_email) && validUser(user_name, user_password)){
+    /*if(validateEmail(user_email) && validUser(user_name, user_password)){*/
 
         try {
 
@@ -71,10 +72,9 @@ export async function postUser(req, res){
             const newUser = await Users.create({
                 user_name,
                 user_password,
-                category,
                 user_email
             }, {
-                fields: ['user_name', 'user_password', 'category', 'user_email']
+                fields: ['user_name', 'user_password', 'user_email']
             });
             //console.log(hash);
             if (newUser){
@@ -90,16 +90,16 @@ export async function postUser(req, res){
         } catch (er) {
             console.log(er);
             res.status(500).json({
-                message: 'error papu',
+                message: 'error, mirar deep deep',
                 data: {}
             });
         }
-
+/*
     } else {
         return res.json({
             message: 'Campos no válidos, revise email, contraseña (8+ longitud) y usuario (5+ logintud)'
         });
-    }
+    }*/
 }
 
 export async function getUser(req, res) {
@@ -119,7 +119,22 @@ export async function getUser(req, res) {
     } catch (er) {
         console.log(er);
     }
+}
 
+export async function getUserName(req, res) {
+    const { user_name } = req.params;
+    try {
+
+        const user = await Users.findOne({
+            where: {
+                user_name
+            }
+        });
+        if (!user) { res.json({ message: 'No user' }); } else { res.json(user); }
+
+    } catch (er) {
+        console.log(er);
+    }
 }
 
 export async function deleteUser(req, res){
@@ -149,14 +164,14 @@ export async function putUser(req, res){
 
     const { id } = req.params;
 
-    const { user_name, user_password, category, user_email } = req.body;
+    const { user_name, user_password, user_email } = req.body;
 
     const hash = bcrypt.hashSync(user_password, 10);
 
     try {
 
         const user = await Users.findAll({
-            attributes: ['id', 'user_name', 'user_password', 'category', 'user_email'],
+            attributes: ['id', 'user_name', 'user_password', 'user_email'],
             where: {
                 id
             }
@@ -168,7 +183,6 @@ export async function putUser(req, res){
                 await user.update({
                     user_name,
                     user_password: hash,
-                    category,
                     user_email
                 });
 
@@ -209,49 +223,52 @@ export async function postLogin(req, res){
             });
         }));*/
 
-
-
-
-
     try {
         
-        if(/*validateEmail(user_email) &&*/ validUser(userName, userPass) && user != null){
+        //if(/*validateEmail(user_email) &&*/ validUser(userName, userPass) && user != null){
 
             try {
+
+                const user = await Users.findOne({
+                    where: {
+                        user_name
+                    }
+                });
+                //if (!user) { res.json({ message: 'No user' }); } else { res.json(user); console.log("llegaAhora") }
                 
                 //const hash = bcrypt.hashSync(userPass, 10);
 
                 //console.log(user.user_password, hash);
-                
-                await bcrypt.compare(userPass, user.user_password, function(err, result){
-                    if(result && !err){
-                        /*res.cookie('user_id', user.id, {
-                            httpOnly: true,
-                            signed: true,
-                            secure: true
-                        });*/
-                        res.json(user);
-                        console.log("Login correcto");
-                    } else {
-                        res.json({
-                            message: 'Contraseña incorrecta'
-                        });
-                    }
-                });
-    
+                if(user) {
+                    await bcrypt.compare(userPass, user.user_password, function(err, result){
+                        if(result && !err){
+                            /*res.cookie('user_id', user.id, {
+                                httpOnly: true,
+                                signed: true,
+                                secure: true
+                            });*/
+                            res.json(user);
+                            console.log("Login correcto");
+                        } else {
+                            res.json({
+                                message: 'Contraseña incorrecta'
+                            });
+                        }
+                    });
+                }
             } catch (er) {
                 console.log(er);
                 res.status(500).json({
-                    message: 'error papu',
+                    message: 'error, mirar deep deep',
                     data: {}
                 });
             }
-    
+    /*
         } else {
             return res.json({
                 message: 'Usuario o contraseña incorrectos'
             });
-        }
+        }*/
         /*
         if (user){
             console.log("OK");

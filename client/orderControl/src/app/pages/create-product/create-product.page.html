@@ -1,0 +1,71 @@
+<ion-header text-center>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">
+      {{ pageTitle }} product
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="prodform" (ngSubmit)="addProduct(prodform.value)">
+
+    <ion-item>
+      <ion-label position="floating">Product name</ion-label>
+      <ion-input type="text" formControlName="prodname"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.prodname">
+        <div class="error-message"
+          *ngIf="prodform.get('prodname').hasError(validation.type) && (prodform.get('prodname').dirty || prodform.get('prodname').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Product description</ion-label>
+      <ion-input type="text" formControlName="proddesc"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.proddesc">
+        <div class="error-message"
+          *ngIf="prodform.get('proddesc').hasError(validation.type) && (prodform.get('proddesc').dirty || prodform.get('proddesc').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Product price</ion-label>
+      <ion-input type="number" formControlName="prodprice"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.prodprice">
+        <div class="error-message"
+          *ngIf="prodform.get('prodprice').hasError(validation.type) && (prodform.get('prodprice').dirty || prodform.get('prodprice').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating">Product image URL</ion-label>
+      <ion-input type="text" formControlName="prodimage"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validationMessages.prodimage">
+        <div class="error-message"
+          *ngIf="prodform.get('prodimage').hasError(validation.type) && (prodform.get('prodimage').dirty || prodform.get('prodimage').touched)">
+          <ion-icon name="information-circle-outline"></ion-icon> {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-button type="submit" expand="block" fill="outline" [disabled]="!prodform.valid">Confirm</ion-button>
+
+  </form>
+
+</ion-content>
