@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { StorageService, Product } from '../../services/storage.service';
-import { Platform, ToastController, /*List*/ } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Platform, ToastController } from '@ionic/angular';
+import { StorageService, Task } from '../../services/storage.service';
 
 @Component({
   selector: 'app-local',
@@ -9,50 +10,115 @@ import { Platform, ToastController, /*List*/ } from '@ionic/angular';
 })
 export class LocalPage implements OnInit {
 
-  products: Product[] = [];
-
-  newProduct: Product = <Product>{};
+  tasks: Task[] = [];
+  localForm: FormGroup;
+  newTask: Task = <Task>{};
+  paramTask: Task;
+  validationMessages = {
+    identifier: [
+      { type: 'required', message: 'To do is required.' },
+      { type: 'minlength', message: 'To do must be at least 5 characters long.' },
+      { type: 'maxlength', message: 'To do cannot be more than 25 characters long.' },
+    ],
+    description: [
+      { type: 'required', message: 'Description is required.' },
+      { type: 'minlength', message: 'Description must be at least 5 characters long.' },
+      { type: 'maxlength', message: 'Description cannot be more than 200 characters long.' },
+    ],
+    manager: [
+      { type: 'required', message: 'Manager is required.' },
+      { type: 'minlength', message: 'Manager must be at least 5 characters long.' }
+    ]
+  };
 
  // @ViewChild('myList')myList: List;
 
   constructor(private storageService: StorageService,
-              private platform: Platform) { 
-
+              private formBuilder: FormBuilder,
+              private toast: ToastController,
+              private platform: Platform) {
     this.platform.ready().then(() => {
-      this.loadProducts();
+      this.loadTasks();
     });
   }
 
-  addProduct(){
-    this.storageService.addProduct(this.newProduct).then(product => {
-      this.newProduct = <Product>{};
-      //this.showToast();
-      this.loadProducts();
+  async chargeForm() {
+
+    this.localForm = this.formBuilder.group({
+      identifier: new FormControl('', Validators.compose([
+        Validators.maxLength(25),
+        Validators.minLength(5),
+        Validators.required
+      ])),
+      manager: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(5)
+      ])),
+      description: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.maxLength(200),
+        Validators.minLength(5)
+      ]))
     });
   }
 
-  loadProducts(){
-    this.storageService.getProducts().then(products => {
-      this.products = products;
+
+  addTask(values) {
+    this.newTask = {
+      identifier: values.identifier,
+      manager: values.manager,
+      description: values.description
+    };
+    this.storageService.addTask(this.newTask).then(task => {
+      // this.newTask = <Task>{};
+      // this.showToast();
+      this.toast.create({
+        message: 'Task created successfully',
+        duration: 3000
+      }).then((toastData) => {
+        toastData.present();
+      });
+      this.loadTasks();
     });
   }
 
-  updateProduct(product: Product){
-    product.name = `UPDATED: ${product.name}`;
+  loadTasks() {
+    this.storageService.getTasks().then(tasks => {
+      this.tasks = tasks;
+    });
+  }
 
-    this.storageService.updateProduct(product).then(product => {
+  putTask(task) {
+    this.paramTask = task;
+    this.localForm.patchValue({
+      identifier: this.paramTask.identifier,
+      manager: this.paramTask.manager,
+      description: this.paramTask.description
+    });
+  }
+
+  updateTask(task: Task, values){
+    this.newTask = {
+      identifier: values.identifier,
+      manager: values.manager,
+      description: values.description
+    };
+
+    this.storageService.updateTask(task).then(task => {
       //this.myList.closeSlidingItems();
-      this.loadProducts();
-    })
+      task = this.newTask;
+      this.loadTasks();
+    });
   }
 
-  deleteProduct(product: Product){
-    this.storageService.deleteProduct(product.id).then(product => {
-      this.loadProducts();
+  deleteTask(task: Task){
+    this.storageService.deleteTask(task.identifier).then(task => {
+      this.loadTasks();
     });
   }
 
   ngOnInit() {
+    this.chargeForm();
   }
 
 }

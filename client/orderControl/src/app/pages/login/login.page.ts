@@ -64,7 +64,6 @@ export class LoginPage implements OnInit {
         });
         this.router.navigate(['/home']);
       }, (error) => {
-        console.log("error")
         this.toast.create({
           message: 'Usuario o contraseña incorrectos',
           duration: 3000

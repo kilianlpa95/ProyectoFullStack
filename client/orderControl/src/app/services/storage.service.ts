@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-export interface Product {
-  id: number;
-  name: string;
+export interface Task {
+  identifier: string;
+  manager: string;
   description: string;
-  price: number;
 }
 
-const PRODUCTS_KEY = 'keys';
+const TASKS_KEY = 'keys';
 
 @Injectable({
   providedIn: 'root'
@@ -18,56 +17,57 @@ export class StorageService {
 
   constructor(private storage: Storage) { }
 
-  addProduct(product: Product): Promise<any> {
-    return this.storage.get(PRODUCTS_KEY).then((products: Product[]) => {
-      if (products) {
-        products.push(product);
-        return this.storage.set(PRODUCTS_KEY, products);
+  addTask(task: Task): Promise<any> {
+    return this.storage.get(TASKS_KEY).then((tasks: Task[]) => {
+      if (tasks) {
+        tasks.push(task);
+        return this.storage.set(TASKS_KEY, tasks);
       } else {
-        return this.storage.set(PRODUCTS_KEY, [product]);
+        return this.storage.set(TASKS_KEY, [task]);
       }
     });
   }
 
-  getProducts(): Promise<Product[]> {
-    return this.storage.get(PRODUCTS_KEY);
+  getTasks(): Promise<Task[]> {
+    return this.storage.get(TASKS_KEY);
   }
 
-  updateProduct(product: Product): Promise<any> {
-    return this.storage.get(PRODUCTS_KEY).then((products: Product[]) => {
-      if (!products || products.length === 0) {
+  updateTask(task: Task): Promise<any> {
+    return this.storage.get(TASKS_KEY).then((tasks: Task[]) => {
+      if (!tasks || tasks.length === 0) {
         return null;
       }
 
-      const newProducts: Product[] = [];
+      const newTasks: Task[] = [];
 
-      for (const i of products) {
-        if (i.id === product.id) {
-          newProducts.push(product);
+      for (const i of tasks) {
+        if (i.identifier === task.identifier) {
+          newTasks.push(task);
+          return this.storage.set(TASKS_KEY, tasks);
         } else {
-          newProducts.push(i);
+          newTasks.push(i);
         }
       }
 
-      return this.storage.set(PRODUCTS_KEY, newProducts);
+      return this.storage.set(TASKS_KEY, newTasks);
     });
   }
 
-  deleteProduct(id: number): Promise<Product[]> {
-    return this.storage.get(PRODUCTS_KEY).then((products: Product[]) => {
-      if (!products || products.length === 0) {
+  deleteTask(identifier: string): Promise<Task[]> {
+    return this.storage.get(TASKS_KEY).then((tasks: Task[]) => {
+      if (!tasks || tasks.length === 0) {
         return null;
       }
 
-      const item: Product[] = [];
+      const item: Task[] = [];
 
-      for (const i of products) {
-        if (i.id !== id) {
+      for (const i of tasks) {
+        if (i.identifier !== identifier) {
           item.push(i);
         }
       }
 
-      return this.storage.set(PRODUCTS_KEY, item);
+      return this.storage.set(TASKS_KEY, item);
 
     });
   }
