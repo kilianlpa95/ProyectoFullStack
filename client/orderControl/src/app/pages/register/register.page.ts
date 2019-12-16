@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { PasswordValidator } from '../../validators/password.validator';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/user';
-import { ToastController } from '@ionic/angular';
+import { ToastController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -45,11 +45,13 @@ export class RegisterPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private apiService: ApiService,
-    private toast: ToastController
+    private toast: ToastController,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
     this.generateForm();
+    this.menuCtrl.enable(false);
   }
 
   generateForm() {

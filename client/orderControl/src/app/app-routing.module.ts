@@ -62,7 +62,8 @@ const routes: Routes = [
   {
     path: 'ingredient-details/:id',
     loadChildren: () => import('./pages/ingredient-details/ingredient-details.module').then( m => m.IngredientDetailsPageModule)
-  },  {
+  },
+  {
     path: 'add-ingredient',
     loadChildren: () => import('./pages/add-ingredient/add-ingredient.module').then( m => m.AddIngredientPageModule)
   }

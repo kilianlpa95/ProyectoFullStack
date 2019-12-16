@@ -4,7 +4,7 @@
 
 A continuación procederé a explicar paso a paso lo necesario para instalar esta aplicación y mostrarla en un navegador web.
 
-### 1. Debemos asegurarnos de tener instalado todo los necesario es decir:
+### 1. Debemos asegurarnos de tener instalado todo los necesario, es decir:
 
 + NodeJs. (https://nodejs.org/)
 + Git. (https://git-scm.com/)

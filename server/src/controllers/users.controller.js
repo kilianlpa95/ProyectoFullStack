@@ -255,6 +255,8 @@ export async function postLogin(req, res){
                             });
                         }
                     });
+                } else {
+                    res.status(500);
                 }
             } catch (er) {
                 console.log(er);

@@ -43,7 +43,10 @@ export class StorageService {
       for (const i of tasks) {
         if (i.identifier === task.identifier) {
           newTasks.push(task);
+<<<<<<< HEAD
           return this.storage.set(TASKS_KEY, tasks);
+=======
+>>>>>>> develop
         } else {
           newTasks.push(i);
         }

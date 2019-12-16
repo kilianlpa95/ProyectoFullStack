@@ -31,8 +31,6 @@ export class LocalPage implements OnInit {
     ]
   };
 
- // @ViewChild('myList')myList: List;
-
   constructor(private storageService: StorageService,
               private formBuilder: FormBuilder,
               private toast: ToastController,
@@ -62,7 +60,6 @@ export class LocalPage implements OnInit {
     });
   }
 
-
   addTask(values) {
     this.newTask = {
       identifier: values.identifier,
@@ -70,8 +67,6 @@ export class LocalPage implements OnInit {
       description: values.description
     };
     this.storageService.addTask(this.newTask).then(task => {
-      // this.newTask = <Task>{};
-      // this.showToast();
       this.toast.create({
         message: 'Task created successfully',
         duration: 3000
@@ -97,22 +92,28 @@ export class LocalPage implements OnInit {
     });
   }
 
-  updateTask(task: Task, values){
-    this.newTask = {
-      identifier: values.identifier,
-      manager: values.manager,
-      description: values.description
-    };
-
-    this.storageService.updateTask(task).then(task => {
-      //this.myList.closeSlidingItems();
-      task = this.newTask;
+  updateTask(task: Task, values) {
+    task.manager = values.manager;
+    task.description = values.description;
+    this.storageService.updateTask(task).then(_ => {
+      this.toast.create({
+        message: 'Task updated successfully',
+        duration: 3000
+      }).then((toastData) => {
+        toastData.present();
+      });
       this.loadTasks();
     });
   }
 
-  deleteTask(task: Task){
-    this.storageService.deleteTask(task.identifier).then(task => {
+  deleteTask(task: Task) {
+    this.storageService.deleteTask(task.identifier).then(_ => {
+      this.toast.create({
+        message: 'Task deleted',
+        duration: 3000
+      }).then((toastData) => {
+        toastData.present();
+      });
       this.loadTasks();
     });
   }

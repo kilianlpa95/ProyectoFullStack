@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { Login } from '../../models/login';
-import { ToastController } from '@ionic/angular';
+import { ToastController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -27,11 +27,13 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private apiService: ApiService,
-    private toast: ToastController
+    private toast: ToastController,
+    private menuCtrl: MenuController
   ) { }
 
   ngOnInit() {
     this.generateForm();
+    this.menuCtrl.enable(false);
   }
 
   generateForm() {
