@@ -29,7 +29,7 @@
           </div>
         </ng-container>
       </div>
-    <ion-button color="secondary" class="submit-btn" expand="full" type="submit" [disabled]="!loginForm.valid">Enter</ion-button>
+    <ion-button [color]="buttonColor" class="submit-btn" expand="full" type="submit" [disabled]="!loginForm.valid">Enter</ion-button>
     <div class="ion-text-center ion-padding">
       If you don't have an account, please <a routerLink='/register'> register</a> first!
     </div>

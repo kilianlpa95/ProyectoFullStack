@@ -4,6 +4,7 @@ import { Product } from '../../models/product';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { ColorService } from '../../services/color.service';
 
 @Component({
   selector: 'app-create-product',
@@ -14,6 +15,7 @@ export class CreateProductPage implements OnInit {
 
   prodform: FormGroup;
   pageTitle: string;
+  buttonColor: string;
   validationMessages = {
     prodname: [
       { type: 'required', message: 'Name is required.' },
@@ -37,7 +39,8 @@ export class CreateProductPage implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
-              private toast: ToastController) { }
+              private toast: ToastController,
+              private colorService: ColorService) { }
 
   product: Product;
   paramProduct: any;
@@ -46,6 +49,7 @@ export class CreateProductPage implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.chargeUpdate();
+    this.buttonColor = this.colorService.getColor();
   }
 
   async chargeUpdate() {

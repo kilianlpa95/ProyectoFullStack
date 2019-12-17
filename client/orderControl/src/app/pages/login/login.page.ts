@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { ColorService } from '../../services/color.service';
 import { Login } from '../../models/login';
 import { ToastController, MenuController } from '@ionic/angular';
 
@@ -14,6 +15,7 @@ export class LoginPage implements OnInit {
 
   loginForm: FormGroup;
   user: Login;
+  buttonColor: string;
   validationMessages = {
     usernameLogin: [
       { type: 'required', message: 'Username is required.' }
@@ -27,6 +29,7 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private apiService: ApiService,
+    private colorService: ColorService,
     private toast: ToastController,
     private menuCtrl: MenuController
   ) { }
@@ -34,6 +37,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.generateForm();
     this.menuCtrl.enable(false);
+    this.colorService.setColor('secondary');
+    this.buttonColor = this.colorService.getColor();
   }
 
   generateForm() {

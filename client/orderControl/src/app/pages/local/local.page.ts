@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Platform, ToastController } from '@ionic/angular';
 import { StorageService, Task } from '../../services/storage.service';
+import { ColorService } from '../../services/color.service';
 
 @Component({
   selector: 'app-local',
@@ -12,6 +13,7 @@ export class LocalPage implements OnInit {
 
   tasks: Task[] = [];
   localForm: FormGroup;
+  buttonColor: string;
   newTask: Task = <Task>{};
   paramTask: Task;
   validationMessages = {
@@ -34,7 +36,8 @@ export class LocalPage implements OnInit {
   constructor(private storageService: StorageService,
               private formBuilder: FormBuilder,
               private toast: ToastController,
-              private platform: Platform) {
+              private platform: Platform,
+              private colorService: ColorService) {
     this.platform.ready().then(() => {
       this.loadTasks();
     });
@@ -95,15 +98,25 @@ export class LocalPage implements OnInit {
   updateTask(task: Task, values) {
     task.manager = values.manager;
     task.description = values.description;
-    this.storageService.updateTask(task).then(_ => {
+
+    if (task.manager === '' || task.description === '') {
       this.toast.create({
-        message: 'Task updated successfully',
+        message: 'Plis insert values into manager and description',
         duration: 3000
       }).then((toastData) => {
         toastData.present();
       });
-      this.loadTasks();
-    });
+    } else {
+      this.storageService.updateTask(task).then(_ => {
+        this.toast.create({
+          message: 'Task updated successfully',
+          duration: 3000
+        }).then((toastData) => {
+          toastData.present();
+        });
+        this.loadTasks();
+      });
+    }
   }
 
   deleteTask(task: Task) {
@@ -120,6 +133,7 @@ export class LocalPage implements OnInit {
 
   ngOnInit() {
     this.chargeForm();
+    this.buttonColor = this.colorService.getColor();
   }
 
 }

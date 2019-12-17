@@ -4,6 +4,7 @@ import { Ingredient } from '../../models/ingredient';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { ColorService } from '../../services/color.service';
 
 @Component({
   selector: 'app-create-ingredient',
@@ -14,6 +15,7 @@ export class CreateIngredientPage implements OnInit {
 
   ingform: FormGroup;
   pageTitle: string;
+  buttonColor: string;
   validationMessages = {
     ingname: [
       { type: 'required', message: 'Name is required.' },
@@ -37,7 +39,8 @@ export class CreateIngredientPage implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router,
               private route: ActivatedRoute,
-              private toast: ToastController) { }
+              private toast: ToastController,
+              private colorService: ColorService) { }
 
   ingredient: Ingredient;
   paramIngredient: any;
@@ -46,6 +49,7 @@ export class CreateIngredientPage implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.chargeUpdate();
+    this.buttonColor = this.colorService.getColor();
     // this.chargeForm();
     // this.id = this.route.snapshot.paramMap.get('id');
     // console.log(this.route.snapshot.paramMap.get('id'));
